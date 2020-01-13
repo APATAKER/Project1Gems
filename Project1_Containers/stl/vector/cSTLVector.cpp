@@ -3,6 +3,7 @@
 #include <ctime>
 #include <Windows.h>
 #include <psapi.h>
+#include<algorithm>
 
 bool cSTLVector::add_person(const sPerson& person)
 {
@@ -173,6 +174,92 @@ bool cSTLVector::get_last_call_performance(sPerformanceData& performance_data)
 
 bool cSTLVector::sort_people(const sort_function_type sort_function, std::vector<sPerson>& result_people)
 {
-
-	return false;
+	result_people = people_;
+	switch (sort_function)
+	{
+	case sort_function_type::asc_first_last:
+		std::sort(result_people.begin(), result_people.end(), sortByAscFirst);
+		return true;
+	case sort_function_type::desc_first_last:
+		std::sort(result_people.begin(), result_people.end(), sortByDescFirst);
+		return true;
+	case sort_function_type::asc_last_first:
+		std::sort(result_people.begin(), result_people.end(), sortByAscLast);
+		return true;
+	case sort_function_type::desc_last_first:
+		std::sort(result_people.begin(), result_people.end(), sortByDescLast);
+		return true;
+	case sort_function_type::asc_id:
+		std::sort(result_people.begin(), result_people.end(), sortByAscId);
+		return true;
+	case sort_function_type::desc_id:
+		std::sort(result_people.begin(), result_people.end(), sortByDescId);
+		return true;
+	case sort_function_type::asc_health:
+		std::sort(result_people.begin(), result_people.end(), sortByAscHp);
+		return true;
+	case sort_function_type::desc_health:
+		std::sort(result_people.begin(), result_people.end(), sortByDescHp);
+		return true;
+	default:
+		return false;
+		
+	}
 }
+
+bool cSTLVector::sortByAscFirst(const sPerson& lhs, const sPerson& rhs)
+{
+	if (lhs.first == rhs.first)
+		return lhs.last < rhs.last;
+	return lhs.first < rhs.first;
+}
+
+bool cSTLVector::sortByDescFirst(const sPerson& lhs, const sPerson& rhs)
+{
+	if (lhs.first == rhs.first)
+		return lhs.last > rhs.last;
+	return lhs.first > rhs.first;
+}
+
+bool cSTLVector::sortByAscLast(const sPerson& lhs, const sPerson& rhs)
+{
+	if (lhs.last == rhs.last)
+		return lhs.first < rhs.first;
+	return lhs.last < rhs.last;
+}
+
+bool cSTLVector::sortByDescLast(const sPerson& lhs, const sPerson& rhs)
+{
+	if (lhs.last == rhs.last)
+		return lhs.first > rhs.first;
+	return lhs.last > rhs.last;
+}
+
+bool cSTLVector::sortByAscId(const sPerson& lhs, const sPerson& rhs)
+{
+	return lhs.unique_id < rhs.unique_id;
+}
+
+bool cSTLVector::sortByDescId(const sPerson& lhs, const sPerson& rhs)
+{
+	return lhs.unique_id > rhs.unique_id;
+}
+
+bool cSTLVector::sortByAscHp(const sPerson& lhs, const sPerson& rhs)
+{
+	return lhs.health < rhs.health;
+}
+
+bool cSTLVector::sortByDescHp(const sPerson& lhs, const sPerson& rhs)
+{
+	return lhs.health > rhs.health;
+}
+
+//asc_first_last,
+//desc_first_last,
+//asc_last_first,
+//desc_last_first,
+//asc_id,
+//desc_id,
+//asc_health,
+//desc_health

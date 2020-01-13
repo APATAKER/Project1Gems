@@ -24,4 +24,13 @@ public:
 		sPerson::size_type max_number_of_results) override;
 	bool get_last_call_performance(sPerformanceData& performance_data) override;
 	bool sort_people(sort_function_type sort_function, std::vector<sPerson>& result_people) override;
+
+	bool sortByAscFirst(const sPerson& lhs, const sPerson& rhs);
+	bool sortByDescFirst(const sPerson& lhs, const sPerson& rhs);
+	bool sortByAscLast(const sPerson& lhs, const sPerson& rhs);
+	bool sortByDescLast(const sPerson& lhs, const sPerson& rhs);
+	bool sortByAscId(const sPerson& lhs, const sPerson& rhs);
+	bool sortByDescId(const sPerson& lhs, const sPerson& rhs);
+	bool sortByAscHp(const sPerson& lhs, const sPerson& rhs);
+	bool sortByDescHp(const sPerson& lhs, const sPerson& rhs);
 };
