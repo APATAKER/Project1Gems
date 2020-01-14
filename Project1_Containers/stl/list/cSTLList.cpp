@@ -181,36 +181,40 @@ bool cSTLList::get_last_call_performance(sPerformanceData& performance_data)
 
 bool cSTLList::sort_people(sort_function_type sort_function, std::vector<sPerson>& result_people)
 {
-	for (std::list<iPersonContainer::sPerson>::iterator it = people_.begin(); it != people_.end(); it++)
-		result_people.push_back(*it);
+
 	switch (sort_function)
 	{
 	case sort_function_type::asc_first_last:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscFirst);
-		return true;
+		people_.sort(cSortLib::sortByAscFirst);
+		break;
 	case sort_function_type::desc_first_last:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescFirst);
-		return true;
+		people_.sort(cSortLib::sortByDescFirst);
+		break;
 	case sort_function_type::asc_last_first:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscLast);
-		return true;
+		people_.sort(cSortLib::sortByAscLast);
+		break;
 	case sort_function_type::desc_last_first:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescLast);
-		return true;
+		people_.sort(cSortLib::sortByDescLast);
+		break;
 	case sort_function_type::asc_id:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscId);
-		return true;
+		people_.sort(cSortLib::sortByAscId);
+		break;
 	case sort_function_type::desc_id:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescId);
-		return true;
+		people_.sort(cSortLib::sortByDescId);
+		break;
 	case sort_function_type::asc_health:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscHp);
-		return true;
+		people_.sort(cSortLib::sortByAscHp);
+		break;
 	case sort_function_type::desc_health:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescHp);
-		return true;
+		people_.sort(cSortLib::sortByDescHp);
+		break;
 	default:
-		return false;
-
+		break;
 	}
+
+
+	for (std::list<iPersonContainer::sPerson>::iterator it = people_.begin(); it != people_.end(); it++)
+		result_people.push_back(*it);
+	
+	return true;
 }
