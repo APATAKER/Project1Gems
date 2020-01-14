@@ -48,7 +48,7 @@ bool cDIYVector::empty()
 
 iPersonContainer::sPerson::size_type cDIYVector::size()
 {
-	return 0;
+	return size_;
 }
 
 bool cDIYVector::find_people(sPerson& person_to_match, std::vector<sPerson>& result_people,

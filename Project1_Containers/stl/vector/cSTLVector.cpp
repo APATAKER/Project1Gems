@@ -4,6 +4,8 @@
 #include <Windows.h>
 #include <psapi.h>
 #include<algorithm>
+#include "../../utlity/sort/cSortLib.h"
+
 
 bool cSTLVector::add_person(const sPerson& person)
 {
@@ -87,9 +89,9 @@ bool cSTLVector::find_people(sPerson::location_type& location, float radius, std
 	{
 		if (max_number_of_results > result_people.size())
 		{
-			float dx = location.x - result_people[i].location.x;
-			float dy = location.y - result_people[i].location.y;
-			float dz = location.z - result_people[i].location.z;
+			float dx = location.x - people_[i].location.x;
+			float dy = location.y - people_[i].location.y;
+			float dz = location.z - people_[i].location.z;
 			float mul = (dx * dx) + (dy * dy) + (dz * dz);
 			float tobecheckedwithradius = sqrt(mul);
 
@@ -115,9 +117,9 @@ bool cSTLVector::find_people(sPerson::location_type& location, float radius, sPe
 	{
 		if (max_number_of_results > result_people.size())
 		{
-			float dx = location.x - result_people[i].location.x;
-			float dy = location.y - result_people[i].location.y;
-			float dz = location.z - result_people[i].location.z;
+			float dx = location.x - people_[i].location.x;
+			float dy = location.y - people_[i].location.y;
+			float dz = location.z - people_[i].location.z;
 			float mul = (dx * dx) + (dy * dy) + (dz * dz);
 			float tobecheckedwithradius = sqrt(mul);
 
@@ -178,28 +180,28 @@ bool cSTLVector::sort_people(const sort_function_type sort_function, std::vector
 	switch (sort_function)
 	{
 	case sort_function_type::asc_first_last:
-		std::sort(result_people.begin(), result_people.end(), sortByAscFirst);
+		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscFirst);
 		return true;
 	case sort_function_type::desc_first_last:
-		std::sort(result_people.begin(), result_people.end(), sortByDescFirst);
+		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescFirst);
 		return true;
 	case sort_function_type::asc_last_first:
-		std::sort(result_people.begin(), result_people.end(), sortByAscLast);
+		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscLast);
 		return true;
 	case sort_function_type::desc_last_first:
-		std::sort(result_people.begin(), result_people.end(), sortByDescLast);
+		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescLast);
 		return true;
 	case sort_function_type::asc_id:
-		std::sort(result_people.begin(), result_people.end(), sortByAscId);
+		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscId);
 		return true;
 	case sort_function_type::desc_id:
-		std::sort(result_people.begin(), result_people.end(), sortByDescId);
+		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescId);
 		return true;
 	case sort_function_type::asc_health:
-		std::sort(result_people.begin(), result_people.end(), sortByAscHp);
+		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscHp);
 		return true;
 	case sort_function_type::desc_health:
-		std::sort(result_people.begin(), result_people.end(), sortByDescHp);
+		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescHp);
 		return true;
 	default:
 		return false;
@@ -207,53 +209,6 @@ bool cSTLVector::sort_people(const sort_function_type sort_function, std::vector
 	}
 }
 
-bool cSTLVector::sortByAscFirst(const sPerson& lhs, const sPerson& rhs)
-{
-	if (lhs.first == rhs.first)
-		return lhs.last < rhs.last;
-	return lhs.first < rhs.first;
-}
-
-bool cSTLVector::sortByDescFirst(const sPerson& lhs, const sPerson& rhs)
-{
-	if (lhs.first == rhs.first)
-		return lhs.last > rhs.last;
-	return lhs.first > rhs.first;
-}
-
-bool cSTLVector::sortByAscLast(const sPerson& lhs, const sPerson& rhs)
-{
-	if (lhs.last == rhs.last)
-		return lhs.first < rhs.first;
-	return lhs.last < rhs.last;
-}
-
-bool cSTLVector::sortByDescLast(const sPerson& lhs, const sPerson& rhs)
-{
-	if (lhs.last == rhs.last)
-		return lhs.first > rhs.first;
-	return lhs.last > rhs.last;
-}
-
-bool cSTLVector::sortByAscId(const sPerson& lhs, const sPerson& rhs)
-{
-	return lhs.unique_id < rhs.unique_id;
-}
-
-bool cSTLVector::sortByDescId(const sPerson& lhs, const sPerson& rhs)
-{
-	return lhs.unique_id > rhs.unique_id;
-}
-
-bool cSTLVector::sortByAscHp(const sPerson& lhs, const sPerson& rhs)
-{
-	return lhs.health < rhs.health;
-}
-
-bool cSTLVector::sortByDescHp(const sPerson& lhs, const sPerson& rhs)
-{
-	return lhs.health > rhs.health;
-}
 
 //asc_first_last,
 //desc_first_last,
