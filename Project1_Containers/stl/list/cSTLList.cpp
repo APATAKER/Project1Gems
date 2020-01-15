@@ -150,7 +150,7 @@ bool cSTLList::get_last_call_performance(sPerformanceData& performance_data)
 
 	if (process == nullptr) {
 		return false;
-	}
+	}  
 
 	if (GetProcessMemoryInfo(process, &counter, sizeof(counter))) {
 		printf("%lu bytes in use\n", counter.WorkingSetSize);
