@@ -51,8 +51,23 @@ bool cSTLList::find_people(sPerson& person_to_match, std::vector<sPerson>& resul
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
 		iPersonContainer::sPerson itPeople = *it;
-		if (max_number_of_results >= result_people.size())
-			if (person_to_match.first == itPeople.first)
+		if (max_number_of_results > result_people.size())
+			if (person_to_match.first.empty() && person_to_match.last.empty())
+			{
+				result_people.push_back(itPeople);
+				flag = 1;
+			}
+			else if (person_to_match.first == itPeople.first && person_to_match.last.empty())
+			{
+				result_people.push_back(itPeople);
+				flag = 1;
+			}
+			else if (person_to_match.last == itPeople.last && person_to_match.first.empty())
+			{
+				result_people.push_back(itPeople);
+				flag = 1;
+			}
+			else if (person_to_match.first == itPeople.first && person_to_match.last == itPeople.last)
 			{
 				result_people.push_back(itPeople);
 				flag = 1;
@@ -71,7 +86,7 @@ bool cSTLList::find_people(sPerson::health_type min_health, sPerson::health_type
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
 		iPersonContainer::sPerson itPeople = *it;
-		if (max_number_of_results >= result_people.size())
+		if (max_number_of_results > result_people.size())
 			if (itPeople.health >= min_health && itPeople.health <= max_health)
 			{
 				result_people.push_back(itPeople);
