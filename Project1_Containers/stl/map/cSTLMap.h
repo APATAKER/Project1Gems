@@ -1,7 +1,8 @@
 ﻿#pragma once
 #include <interfaces/iPersonContainer.h>
 
-class cSTLMap
+
+class cSTLMap : public iPersonContainer
 {
 
 public:
