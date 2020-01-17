@@ -49,11 +49,29 @@ bool cSTLVector::find_people(sPerson& person_to_match, std::vector<sPerson>& res
 	auto flag = 0;
 	for (int i = 0; i < people_.size(); i++)
 	{
-		if(max_number_of_results >= result_people.size())
-		if (person_to_match.first == people_[i].first)
+		if (max_number_of_results > result_people.size())
 		{
-			result_people.push_back(people_[i]);
-			flag = 1;
+
+			if (person_to_match.first.empty() && person_to_match.last.empty())
+			{
+				result_people.push_back(people_[i]);
+				flag = 1;
+			}
+			else if (person_to_match.first == people_[i].first && person_to_match.last.empty())
+			{
+				result_people.push_back(people_[i]);
+				flag = 1;
+			}
+			else if (person_to_match.last == people_[i].last && person_to_match.first.empty())
+			{
+				result_people.push_back(people_[i]);
+				flag = 1;
+			}
+			else if (person_to_match.first == people_[i].first && person_to_match.last == people_[i].last)
+			{
+				result_people.push_back(people_[i]);
+				flag = 1;
+			}
 		}
 	}
 	if (flag == 1)
@@ -68,7 +86,7 @@ bool cSTLVector::find_people(sPerson::health_type min_health, sPerson::health_ty
 	auto flag = 0;
 	for (int i = 0; i < people_.size(); i++)
 	{
-		if (max_number_of_results >= result_people.size())
+		if (max_number_of_results > result_people.size())
 			if (people_[i].health >= min_health && people_[i].health <= max_health)
 			{
 				result_people.push_back(people_[i]);
@@ -148,7 +166,7 @@ bool cSTLVector::get_last_call_performance(sPerformanceData& performance_data)
 	}
 
 	if (GetProcessMemoryInfo(process, &counter, sizeof(counter))) {
-		printf("%lu bytes in use\n", counter.WorkingSetSize);
+		//printf("%lu bytes in use\n", counter.WorkingSetSize);
 
 		if(counter.WorkingSetSize < performance_data.memory_usage_bytes_min)
 		performance_data.memory_usage_bytes_min = counter.WorkingSetSize;

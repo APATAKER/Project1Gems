@@ -66,10 +66,20 @@ public:
 	
 	/**
 	 * \brief this function will add a sPerson object to the container
+	 *		  the map does not use this function (just return false on map)
 	 * \param person the person you want to add to the container
 	 * \return true if successful / false if failure
 	 */
 	virtual bool add_person(const sPerson& person) = 0;
+
+	/**
+	 * \brief this function will add a sPerson object to the container
+	 *		  this is for the map containers (not needed on vector or list..just return false)
+	 * \param key a string representing a unique key for the sPerson 
+	 * \param person the person you want to add to the container
+	 * \return true if successful / false if failure
+	 */
+	virtual bool add_person(const std::string& key, const sPerson& person) = 0;
 
 	/**
 	 * \brief finds a person in the container with the specified unique id
