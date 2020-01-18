@@ -12,4 +12,5 @@ static bool sortByAscId(const iPersonContainer::sPerson& lhs, const iPersonConta
 static bool sortByDescId(const iPersonContainer::sPerson& lhs, const iPersonContainer::sPerson& rhs);
 static bool sortByAscHp(const iPersonContainer::sPerson& lhs, const iPersonContainer::sPerson& rhs);
 static bool sortByDescHp(const iPersonContainer::sPerson& lhs, const iPersonContainer::sPerson& rhs);
+//static void pushToVecFromMap(const )
 };

@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <psapi.h>
 #include<algorithm>
+//#include<string>
 #include "../../utlity/sort/cSortLib.h"
 
 
@@ -199,5 +200,131 @@ bool cSTLMap::get_last_call_performance(sPerformanceData& performance_data)
 
 bool cSTLMap::sort_people(sort_function_type sort_function, std::vector<sPerson>& result_people)
 {
+	
+	switch (sort_function)
+	{
+	case sort_function_type::asc_first_last:
+	{
+		std::map<std::string, sPerson> tempMap;
+		for (std::map<std::string, sPerson>::iterator it = people_.begin(); it != people_.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			tempMap.insert(std::pair < std::string, sPerson>(itPerson.first, itPerson));
+		}
+		for (std::map<std::string, sPerson>::iterator it = tempMap.begin(); it != tempMap.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			result_people.push_back(itPerson);
+		}
+		return true;
+	}
+	case sort_function_type::desc_first_last:
+	{
+		std::map<std::string, sPerson, std::greater<std::string>> tempMap;
+		for (std::map<std::string, sPerson>::iterator it = people_.begin(); it != people_.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			tempMap.insert(std::pair < std::string, sPerson>(itPerson.first, itPerson));
+		}
+		for (std::map<std::string, sPerson>::iterator it = tempMap.begin(); it != tempMap.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			result_people.push_back(itPerson);
+		}
+		return true;
+	}
+	case sort_function_type::asc_last_first:
+	{
+		std::map < std::string, sPerson > tempMap;
+		for (std::map<std::string, sPerson>::iterator it = people_.begin(); it != people_.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			tempMap.insert(std::pair < std::string, sPerson>(itPerson.last, itPerson));
+		}
+		for (std::map<std::string, sPerson>::iterator it = tempMap.begin(); it != tempMap.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			result_people.push_back(itPerson);
+		}
+		return true;
+	}
+	case sort_function_type::desc_last_first:
+	{
+		std::map < std::string, sPerson, std::greater<std::string >> tempMap;
+		for (std::map<std::string, sPerson>::iterator it = people_.begin(); it != people_.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			tempMap.insert(std::pair < std::string, sPerson>(itPerson.last, itPerson));
+		}
+		for (std::map<std::string, sPerson>::iterator it = tempMap.begin(); it != tempMap.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			result_people.push_back(itPerson);
+		}
+		return true;
+	}
+	case sort_function_type::asc_id:
+	{
+		std::map<std::string, sPerson> tempMap;
+		for (std::map<std::string, sPerson>::iterator it = people_.begin(); it != people_.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			tempMap.insert(std::pair < std::string, sPerson>(std::to_string(itPerson.unique_id), itPerson));
+		}
+		for (std::map<std::string, sPerson>::iterator it = tempMap.begin(); it != tempMap.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			result_people.push_back(itPerson);
+		}
+		return true;
+	}
+	case sort_function_type::desc_id:
+	{
+		std::map<std::string, sPerson, std::greater<std::string>> tempMap;
+		for (std::map<std::string, sPerson>::iterator it = people_.begin(); it != people_.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			tempMap.insert(std::pair < std::string, sPerson>(std::to_string(itPerson.unique_id), itPerson));
+		}
+		for (std::map<std::string, sPerson>::iterator it = tempMap.begin(); it != tempMap.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			result_people.push_back(itPerson);
+		}
+		return true;
+	}
+	case sort_function_type::asc_health:
+	{
+		std::map<std::string, sPerson> tempMap;
+		for (std::map<std::string, sPerson>::iterator it = people_.begin(); it != people_.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			tempMap.insert(std::pair < std::string, sPerson>(std::to_string(itPerson.health), itPerson));
+		}
+		for (std::map<std::string, sPerson>::iterator it = tempMap.begin(); it != tempMap.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			result_people.push_back(itPerson);
+		}
+		return true;
+	}
+	case sort_function_type::desc_health:
+	{
+		std::map<std::string, sPerson, std::greater<std::string>> tempMap;
+		for (std::map<std::string, sPerson>::iterator it = people_.begin(); it != people_.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			tempMap.insert(std::pair < std::string, sPerson>(std::to_string(itPerson.health), itPerson));
+		}
+		for (std::map<std::string, sPerson>::iterator it = tempMap.begin(); it != tempMap.end(); it++)
+		{
+			iPersonContainer::sPerson itPerson = (*it).second;
+			result_people.push_back(itPerson);
+		}
+		return true;
+	}
+	default:
+		return false;
+	}
 	return false;
 }
