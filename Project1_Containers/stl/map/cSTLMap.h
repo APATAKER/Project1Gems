@@ -7,6 +7,7 @@ class cSTLMap : public iPersonContainer
 	sPerformanceData last_call_performance_;
 	std::map<std::string, sPerson> people_;
 public:
+	bool add_person(const sPerson& person) override;
 	bool add_person(const std::string& key, const sPerson& person) override;
 	bool find_person_by_id(sPerson::id_type unique_id, sPerson& result_person) override;
 	bool empty() override;

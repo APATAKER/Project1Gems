@@ -38,23 +38,71 @@ bool cDIYVector::add_person(const sPerson& person)
 
 bool cDIYVector::find_person_by_id(const sPerson::id_type unique_id, sPerson& result_person)
 {
-	return false;
+	auto flag = 0;
+	for (int i = 0; i <= size_; i++)
+	{
+		sPerson itPerson= *(people_ + i);
+		if (unique_id == itPerson.unique_id)
+		{
+			result_person = itPerson;
+			flag = 1;
+		}
+	}
+	if (flag == 1)
+		return true;
+	else
+		return false;
 }
 
 bool cDIYVector::empty()
 {
-	return false;
+	if (capacity_ == 0)
+		return true;
+	else
+		return false;
 }
 
 iPersonContainer::sPerson::size_type cDIYVector::size()
 {
-	return size_;
+	return (size_+1);
 }
 
 bool cDIYVector::find_people(sPerson& person_to_match, std::vector<sPerson>& result_people,
 	sPerson::size_type max_number_of_results)
 {
-	return false;
+
+	auto flag = 0;
+	for (int i = 0; i < size_; i++)
+	{
+		if (max_number_of_results > result_people.size())
+		{
+
+			if (person_to_match.first.empty() && person_to_match.last.empty())
+			{
+				result_people.push_back(people_[i]);
+				flag = 1;
+			}
+			else if (person_to_match.first == people_[i].first && person_to_match.last.empty())
+			{
+				result_people.push_back(people_[i]);
+				flag = 1;
+			}
+			else if (person_to_match.last == people_[i].last && person_to_match.first.empty())
+			{
+				result_people.push_back(people_[i]);
+				flag = 1;
+			}
+			else if (person_to_match.first == people_[i].first && person_to_match.last == people_[i].last)
+			{
+				result_people.push_back(people_[i]);
+				flag = 1;
+			}
+		}
+	}
+	if (flag == 1)
+		return true;
+	else
+		return false;
 }
 
 bool cDIYVector::find_people(sPerson::health_type min_health, sPerson::health_type max_health,

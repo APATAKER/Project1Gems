@@ -9,6 +9,11 @@
 
 
 
+bool cSTLMap::add_person(const sPerson& person)
+{
+	return false;
+}
+
 bool cSTLMap::add_person(const std::string& key, const sPerson& person)
 {
 //	people_[(key)] = person;

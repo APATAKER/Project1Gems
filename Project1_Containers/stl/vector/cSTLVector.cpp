@@ -13,6 +13,11 @@ bool cSTLVector::add_person(const sPerson& person)
 	return true;
 }
 
+bool cSTLVector::add_person(const std::string& key, const sPerson& person)
+{
+	return false;
+}
+
 bool cSTLVector::find_person_by_id(const sPerson::id_type unique_id, sPerson& result_person)
 {
 	auto flag = 0;
