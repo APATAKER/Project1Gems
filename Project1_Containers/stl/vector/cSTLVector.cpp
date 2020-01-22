@@ -1,15 +1,31 @@
 ﻿#include "cSTLVector.h"
+#include <iostream>
 #include<cmath>
 #include <ctime>
 #include <Windows.h>
 #include <psapi.h>
 #include<algorithm>
 #include "../../utlity/sort/cSortLib.h"
+#include"../../utlity/Performance/PerformanceFunctions.h"
 
 
 bool cSTLVector::add_person(const sPerson& person)
 {
+	sPerformanceData performance_data;
+	const auto start_time = clock();
+	startPerformance(performance_data);
+	
+
 	people_.push_back(person);
+
+	
+	startPerformance(performance_data);
+
+	const auto end_time = clock();
+	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
+	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC ;
+
+	last_call_performance_ = performance_data;
 	return true;
 }
 

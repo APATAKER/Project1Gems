@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include<float.h>
 
 /**
  * \brief this is the interface for all your containers
@@ -141,7 +142,7 @@ public:
 	//represents memory and time usage for a given function call
 	struct sPerformanceData
 	{
-		sPerformanceData() : elapsed_call_time_ms(0.0f), memory_usage_bytes_min(0.0f), memory_usage_bytes_max(0.0f), memory_usage_bytes_avg(0.0f) {}
+		sPerformanceData() : elapsed_call_time_ms(0.0f), memory_usage_bytes_min(FLT_MAX), memory_usage_bytes_max(0.0f), memory_usage_bytes_avg(0.0f) {}
 		float elapsed_call_time_ms;
 		float memory_usage_bytes_min;
 		float memory_usage_bytes_max;

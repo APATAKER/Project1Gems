@@ -150,6 +150,7 @@
     <ClInclude Include="stl\map\cSTLMap.h" />
     <ClInclude Include="stl\list\cSTLList.h" />
     <ClInclude Include="stl\vector\cSTLVector.h" />
+    <ClInclude Include="utlity\Performance\PerformanceFunctions.h" />
     <ClInclude Include="utlity\sort\cSortLib.h" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +160,7 @@
     <ClCompile Include="stl\map\cSTLMap.cpp" />
     <ClCompile Include="stl\list\cSTLList.cpp" />
     <ClCompile Include="stl\vector\cSTLVector.cpp" />
+    <ClCompile Include="utlity\Performance\PerformanceFunctions.cpp" />
     <ClCompile Include="utlity\sort\cSortLib.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
