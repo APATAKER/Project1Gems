@@ -4,6 +4,7 @@
 #include <ctime>
 #include <Windows.h>
 #include <psapi.h>
+#include <iomanip>
 #include<algorithm>
 #include "../../utlity/sort/cSortLib.h"
 #include"../../utlity/Performance/PerformanceFunctions.h"
@@ -36,6 +37,10 @@ bool cSTLVector::add_person(const std::string& key, const sPerson& person)
 
 bool cSTLVector::find_person_by_id(const sPerson::id_type unique_id, sPerson& result_person)
 {
+	sPerformanceData performance_data;
+	const auto start_time = clock();
+	startPerformance(performance_data);
+
 	auto flag = 0;
 	for (int i = 0; i < people_.size(); i++)
 	{
@@ -45,10 +50,19 @@ bool cSTLVector::find_person_by_id(const sPerson::id_type unique_id, sPerson& re
 			flag = 1;
 		}
 	}
+	startPerformance(performance_data);
+
+	const auto end_time = clock();
+	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
+	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC;
+
+	last_call_performance_ = performance_data;
 	if(flag == 1)
 		return true;
 	else
 		return false;
+
+
 }
 
 bool cSTLVector::empty()
@@ -67,6 +81,9 @@ iPersonContainer::sPerson::size_type cSTLVector::size()
 bool cSTLVector::find_people(sPerson& person_to_match, std::vector<sPerson>& result_people,
 	sPerson::size_type max_number_of_results)
 {
+	sPerformanceData performance_data;
+	const auto start_time = clock();
+	startPerformance(performance_data);
 	auto flag = 0;
 	for (int i = 0; i < people_.size(); i++)
 	{
@@ -95,6 +112,13 @@ bool cSTLVector::find_people(sPerson& person_to_match, std::vector<sPerson>& res
 			}
 		}
 	}
+	startPerformance(performance_data);
+
+	const auto end_time = clock();
+	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
+	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC;
+
+	last_call_performance_ = performance_data;
 	if (flag == 1)
 		return true;
 	else
@@ -104,6 +128,9 @@ bool cSTLVector::find_people(sPerson& person_to_match, std::vector<sPerson>& res
 bool cSTLVector::find_people(sPerson::health_type min_health, sPerson::health_type max_health,
 	std::vector<sPerson>& result_people, sPerson::size_type max_number_of_results)
 {
+	sPerformanceData performance_data;
+	const auto start_time = clock();
+	startPerformance(performance_data);
 	auto flag = 0;
 	for (int i = 0; i < people_.size(); i++)
 	{
@@ -114,6 +141,13 @@ bool cSTLVector::find_people(sPerson::health_type min_health, sPerson::health_ty
 				flag = 1;
 			}
 	}
+	startPerformance(performance_data);
+
+	const auto end_time = clock();
+	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
+	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC;
+
+	last_call_performance_ = performance_data;
 	if (flag == 1)
 		return true;
 	else
@@ -123,6 +157,9 @@ bool cSTLVector::find_people(sPerson::health_type min_health, sPerson::health_ty
 bool cSTLVector::find_people(sPerson::location_type& location, float radius, std::vector<sPerson>& result_people,
 	sPerson::size_type max_number_of_results)
 {
+	sPerformanceData performance_data;
+	const auto start_time = clock();
+	startPerformance(performance_data);
 	auto flag = 0;
 	for (int i = 0; i < people_.size(); i++)
 	{
@@ -142,6 +179,13 @@ bool cSTLVector::find_people(sPerson::location_type& location, float radius, std
 
 		}
 	}
+	startPerformance(performance_data);
+
+	const auto end_time = clock();
+	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
+	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC;
+
+	last_call_performance_ = performance_data;
 	if (flag == 1)
 		return true;
 	else
@@ -151,6 +195,9 @@ bool cSTLVector::find_people(sPerson::location_type& location, float radius, std
 bool cSTLVector::find_people(sPerson::location_type& location, float radius, sPerson::health_type min_health,
 	sPerson::health_type max_health, std::vector<sPerson>& result_people, sPerson::size_type max_number_of_results)
 {
+	sPerformanceData performance_data;
+	const auto start_time = clock();
+	startPerformance(performance_data);
 	auto flag = 0;
 	for (int i = 0; i < people_.size(); i++)
 	{
@@ -170,6 +217,13 @@ bool cSTLVector::find_people(sPerson::location_type& location, float radius, sPe
 
 		}
 	}
+	startPerformance(performance_data);
+
+	const auto end_time = clock();
+	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
+	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC;
+
+	last_call_performance_ = performance_data;
 	if (flag == 1)
 		return true;
 	else
@@ -178,31 +232,13 @@ bool cSTLVector::find_people(sPerson::location_type& location, float radius, sPe
 
 bool cSTLVector::get_last_call_performance(sPerformanceData& performance_data)
 {
-	auto const process = GetCurrentProcess();
-	PROCESS_MEMORY_COUNTERS counter;
-	const auto start_time = clock();
-
-	if (process == nullptr) {
-		return false;
-	}
-
-	if (GetProcessMemoryInfo(process, &counter, sizeof(counter))) {
-		//printf("%lu bytes in use\n", counter.WorkingSetSize);
-
-		if(counter.WorkingSetSize < performance_data.memory_usage_bytes_min)
-		performance_data.memory_usage_bytes_min = counter.WorkingSetSize;
-
-		if(counter.WorkingSetSize > performance_data.memory_usage_bytes_max)
-		performance_data.memory_usage_bytes_max = counter.WorkingSetSize;
-
-
-		performance_data.memory_usage_bytes_avg = (performance_data.memory_usage_bytes_max
-													+ performance_data.memory_usage_bytes_min)/2;
-
-		const auto end_time = clock();
-		const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
-
-		performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC / 60;
+	performance_data = last_call_performance_;
+	if(performance_data.memory_usage_bytes_min != FLT_MAX)
+	{
+	std::cout << "Minimum memory usage :" <<std::fixed<< std::setprecision(2) << performance_data.memory_usage_bytes_min << std::endl;
+	std::cout << "Maximum memory usage :" <<std::fixed<< std::setprecision(2)<< performance_data.memory_usage_bytes_max << std::endl;
+	std::cout << "Average memory usage :" <<std::fixed<< std::setprecision(2)<< performance_data.memory_usage_bytes_avg << std::endl;
+	std::cout << "Elapsed CallTime MS :" << performance_data.elapsed_call_time_ms << std::endl;
 		return true;
 	}
 	else
@@ -215,36 +251,62 @@ bool cSTLVector::get_last_call_performance(sPerformanceData& performance_data)
 
 bool cSTLVector::sort_people(const sort_function_type sort_function, std::vector<sPerson>& result_people)
 {
+	auto flag = 0;
+	sPerformanceData performance_data;
+	const auto start_time = clock();
+	startPerformance(performance_data);
 	result_people = people_;
 	switch (sort_function)
 	{
 	case sort_function_type::asc_first_last:
 		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscFirst);
-		return true;
+		flag = 1;
+		break;
 	case sort_function_type::desc_first_last:
 		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescFirst);
-		return true;
+		flag = 1;
+		break;
 	case sort_function_type::asc_last_first:
 		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscLast);
-		return true;
+		flag = 1;
+		break;
 	case sort_function_type::desc_last_first:
 		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescLast);
-		return true;
+		flag = 1;
+		break;
 	case sort_function_type::asc_id:
 		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscId);
-		return true;
+		flag = 1;
+		break;
 	case sort_function_type::desc_id:
 		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescId);
-		return true;
+		flag = 1;
+		break;
 	case sort_function_type::asc_health:
 		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscHp);
-		return true;
+		flag = 1;
+		break;
 	case sort_function_type::desc_health:
 		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescHp);
-		return true;
+		flag = 1;
+		break;
 	default:
+		break;
+	}
+	startPerformance(performance_data);
+
+	const auto end_time = clock();
+	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
+	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC;
+
+	last_call_performance_ = performance_data;
+	if (flag == 1)
+	{
+		return true;
+	}
+	else
+	{
 		return false;
-		
 	}
 }
 
