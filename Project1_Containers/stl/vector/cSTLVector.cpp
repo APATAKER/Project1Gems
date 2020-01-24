@@ -5,28 +5,25 @@
 #include <Windows.h>
 #include <psapi.h>
 #include <iomanip>
-#include<algorithm>
+#include <algorithm>
 #include "../../utlity/sort/cSortLib.h"
 #include"../../utlity/Performance/PerformanceFunctions.h"
 
 
 bool cSTLVector::add_person(const sPerson& person)
 {
-	sPerformanceData performance_data;
-	const auto start_time = clock();
-	startPerformance(performance_data);
-	
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+
 
 	people_.push_back(person);
 
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
 	
-	startPerformance(performance_data);
-
-	const auto end_time = clock();
-	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
-	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC ;
-
-	last_call_performance_ = performance_data;
 	return true;
 }
 
@@ -37,9 +34,9 @@ bool cSTLVector::add_person(const std::string& key, const sPerson& person)
 
 bool cSTLVector::find_person_by_id(const sPerson::id_type unique_id, sPerson& result_person)
 {
-	sPerformanceData performance_data;
-	const auto start_time = clock();
-	startPerformance(performance_data);
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
 
 	auto flag = 0;
 	for (int i = 0; i < people_.size(); i++)
@@ -50,13 +47,12 @@ bool cSTLVector::find_person_by_id(const sPerson::id_type unique_id, sPerson& re
 			flag = 1;
 		}
 	}
-	startPerformance(performance_data);
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
 
-	const auto end_time = clock();
-	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
-	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC;
 
-	last_call_performance_ = performance_data;
 	if(flag == 1)
 		return true;
 	else
@@ -81,9 +77,10 @@ iPersonContainer::sPerson::size_type cSTLVector::size()
 bool cSTLVector::find_people(sPerson& person_to_match, std::vector<sPerson>& result_people,
 	sPerson::size_type max_number_of_results)
 {
-	sPerformanceData performance_data;
-	const auto start_time = clock();
-	startPerformance(performance_data);
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+
 	auto flag = 0;
 	for (int i = 0; i < people_.size(); i++)
 	{
@@ -112,13 +109,11 @@ bool cSTLVector::find_people(sPerson& person_to_match, std::vector<sPerson>& res
 			}
 		}
 	}
-	startPerformance(performance_data);
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
 
-	const auto end_time = clock();
-	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
-	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC;
-
-	last_call_performance_ = performance_data;
 	if (flag == 1)
 		return true;
 	else
@@ -128,9 +123,10 @@ bool cSTLVector::find_people(sPerson& person_to_match, std::vector<sPerson>& res
 bool cSTLVector::find_people(sPerson::health_type min_health, sPerson::health_type max_health,
 	std::vector<sPerson>& result_people, sPerson::size_type max_number_of_results)
 {
-	sPerformanceData performance_data;
-	const auto start_time = clock();
-	startPerformance(performance_data);
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+
 	auto flag = 0;
 	for (int i = 0; i < people_.size(); i++)
 	{
@@ -141,13 +137,11 @@ bool cSTLVector::find_people(sPerson::health_type min_health, sPerson::health_ty
 				flag = 1;
 			}
 	}
-	startPerformance(performance_data);
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
 
-	const auto end_time = clock();
-	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
-	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC;
-
-	last_call_performance_ = performance_data;
 	if (flag == 1)
 		return true;
 	else
@@ -157,9 +151,10 @@ bool cSTLVector::find_people(sPerson::health_type min_health, sPerson::health_ty
 bool cSTLVector::find_people(sPerson::location_type& location, float radius, std::vector<sPerson>& result_people,
 	sPerson::size_type max_number_of_results)
 {
-	sPerformanceData performance_data;
-	const auto start_time = clock();
-	startPerformance(performance_data);
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+
 	auto flag = 0;
 	for (int i = 0; i < people_.size(); i++)
 	{
@@ -179,13 +174,11 @@ bool cSTLVector::find_people(sPerson::location_type& location, float radius, std
 
 		}
 	}
-	startPerformance(performance_data);
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
 
-	const auto end_time = clock();
-	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
-	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC;
-
-	last_call_performance_ = performance_data;
 	if (flag == 1)
 		return true;
 	else
@@ -195,9 +188,10 @@ bool cSTLVector::find_people(sPerson::location_type& location, float radius, std
 bool cSTLVector::find_people(sPerson::location_type& location, float radius, sPerson::health_type min_health,
 	sPerson::health_type max_health, std::vector<sPerson>& result_people, sPerson::size_type max_number_of_results)
 {
-	sPerformanceData performance_data;
-	const auto start_time = clock();
-	startPerformance(performance_data);
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+
 	auto flag = 0;
 	for (int i = 0; i < people_.size(); i++)
 	{
@@ -217,13 +211,11 @@ bool cSTLVector::find_people(sPerson::location_type& location, float radius, sPe
 
 		}
 	}
-	startPerformance(performance_data);
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
 
-	const auto end_time = clock();
-	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
-	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC;
-
-	last_call_performance_ = performance_data;
 	if (flag == 1)
 		return true;
 	else
@@ -252,9 +244,12 @@ bool cSTLVector::get_last_call_performance(sPerformanceData& performance_data)
 bool cSTLVector::sort_people(const sort_function_type sort_function, std::vector<sPerson>& result_people)
 {
 	auto flag = 0;
-	sPerformanceData performance_data;
-	const auto start_time = clock();
-	startPerformance(performance_data);
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+
+
 	result_people = people_;
 	switch (sort_function)
 	{
@@ -293,13 +288,11 @@ bool cSTLVector::sort_people(const sort_function_type sort_function, std::vector
 	default:
 		break;
 	}
-	startPerformance(performance_data);
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
 
-	const auto end_time = clock();
-	const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
-	performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC;
-
-	last_call_performance_ = performance_data;
 	if (flag == 1)
 	{
 		return true;

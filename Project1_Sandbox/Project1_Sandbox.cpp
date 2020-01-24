@@ -1,12 +1,16 @@
 //this is a driver program to test your container library as you build it
 
-#include <stl/vector/cSTLVector.h>
+#include<stl/vector/cSTLVector.h>
+#include<stl/list/cSTLList.h>
+#include<stl/map/cSTLMap.h>
+
 #include<diy/list/cDIYList.h>
 #include<iostream>
 
 int main(int argc, char* argv[])
 {	
-	auto* container = new cSTLVector(); iPersonContainer::sPerformanceData Pdata;
+	auto* container = new cSTLVector();
+	iPersonContainer::sPerformanceData Pdata;
 
 	iPersonContainer::sPerson person;
 	person.unique_id = 1;
