@@ -5,10 +5,21 @@
 #include <psapi.h>
 #include<algorithm>
 #include "../../utlity/sort/cSortLib.h"
+#include"../../utlity/Performance/PerformanceFunctions.h"
 
 bool cSTLList::add_person(const sPerson& person)
 {
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+	
 	people_.push_back(person);
+
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
 	return true;
 }
 
@@ -20,6 +31,11 @@ bool cSTLList::add_person(const std::string& key, const sPerson& person)
 bool cSTLList::find_person_by_id(sPerson::id_type unique_id, sPerson& result_person)
 {
 	auto flag = 0;
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+	
 	std::list<iPersonContainer::sPerson>::iterator it;
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
@@ -30,6 +46,11 @@ bool cSTLList::find_person_by_id(sPerson::id_type unique_id, sPerson& result_per
 			flag = 1;
 		}
 	}
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+	
 	if (flag == 1)
 		return true;
 	else
@@ -52,6 +73,11 @@ iPersonContainer::sPerson::size_type cSTLList::size()
 bool cSTLList::find_people(sPerson& person_to_match, std::vector<sPerson>& result_people, sPerson::size_type max_number_of_results)
 {
 	auto flag = 0;
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+	
 	std::list<iPersonContainer::sPerson>::iterator it;
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
@@ -78,6 +104,11 @@ bool cSTLList::find_people(sPerson& person_to_match, std::vector<sPerson>& resul
 				flag = 1;
 			}
 	}
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+	
 	if (flag == 1)
 		return true;
 	else
@@ -87,6 +118,11 @@ bool cSTLList::find_people(sPerson& person_to_match, std::vector<sPerson>& resul
 bool cSTLList::find_people(sPerson::health_type min_health, sPerson::health_type max_health, std::vector<sPerson>& result_people, sPerson::size_type max_number_of_results)
 {
 	auto flag = 0;
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+	
 	std::list<iPersonContainer::sPerson>::iterator it;
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
@@ -98,6 +134,11 @@ bool cSTLList::find_people(sPerson::health_type min_health, sPerson::health_type
 				flag = 1;
 			}
 	}
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+	
 	if (flag == 1)
 		return true;
 	else
@@ -107,6 +148,11 @@ bool cSTLList::find_people(sPerson::health_type min_health, sPerson::health_type
 bool cSTLList::find_people(sPerson::location_type& location, float radius, std::vector<sPerson>& result_people, sPerson::size_type max_number_of_results)
 {
 	auto flag = 0;
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+	
 	std::list<iPersonContainer::sPerson>::iterator it;
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
@@ -127,6 +173,11 @@ bool cSTLList::find_people(sPerson::location_type& location, float radius, std::
 
 		}
 	}
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+	
 	if (flag == 1)
 		return true;
 	else
@@ -136,6 +187,11 @@ bool cSTLList::find_people(sPerson::location_type& location, float radius, std::
 bool cSTLList::find_people(sPerson::location_type& location, float radius, sPerson::health_type min_health, sPerson::health_type max_health, std::vector<sPerson>& result_people, sPerson::size_type max_number_of_results)
 {
 	auto flag = 0;
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+	
 	std::list<iPersonContainer::sPerson>::iterator it;
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
@@ -156,6 +212,11 @@ bool cSTLList::find_people(sPerson::location_type& location, float radius, sPers
 
 		}
 	}
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+	
 	if (flag == 1)
 		return true;
 	else
@@ -164,36 +225,13 @@ bool cSTLList::find_people(sPerson::location_type& location, float radius, sPers
 
 bool cSTLList::get_last_call_performance(sPerformanceData& performance_data)
 {
-	auto const process = GetCurrentProcess();
-	PROCESS_MEMORY_COUNTERS counter;
-	const auto start_time = clock();
-
-	if (process == nullptr) {
-		return false;
-	}  
-
-	if (GetProcessMemoryInfo(process, &counter, sizeof(counter))) {
-		printf("%lu bytes in use\n", counter.WorkingSetSize);
-
-		if (counter.WorkingSetSize < performance_data.memory_usage_bytes_min)
-			performance_data.memory_usage_bytes_min = counter.WorkingSetSize;
-
-		if (counter.WorkingSetSize > performance_data.memory_usage_bytes_max)
-			performance_data.memory_usage_bytes_max = counter.WorkingSetSize;
-
-
-		performance_data.memory_usage_bytes_avg = (performance_data.memory_usage_bytes_max
-			+ performance_data.memory_usage_bytes_min) / 2;
-
-		const auto end_time = clock();
-		const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
-
-		performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC / 60;
+	cPerformanceData cPD;
+	auto flag = 0;
+	flag = cPD.printPreformanceData(performance_data);
+	if (flag = 1)
 		return true;
-	}
 	else
 	{
-
 		printf("There was an error getting performance data.\n");
 		return false;
 	}
@@ -202,6 +240,9 @@ bool cSTLList::get_last_call_performance(sPerformanceData& performance_data)
 bool cSTLList::sort_people(sort_function_type sort_function, std::vector<sPerson>& result_people)
 {
 
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
 	switch (sort_function)
 	{
 	case sort_function_type::asc_first_last:
@@ -235,6 +276,11 @@ bool cSTLList::sort_people(sort_function_type sort_function, std::vector<sPerson
 
 	for (std::list<iPersonContainer::sPerson>::iterator it = people_.begin(); it != people_.end(); it++)
 		result_people.push_back(*it);
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+	
 	
 	return true;
 }

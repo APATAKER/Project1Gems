@@ -6,11 +6,11 @@
 
 class cSTLVector : public iPersonContainer
 {
-	sPerformanceData last_call_performance_;
 	std::vector<iPersonContainer::sPerson> people_;
 
 	using people_container_sort_predicate = bool(*)(const sPerson& lhs, const sPerson& rhs);
 public:
+	sPerformanceData last_call_performance_;
 	bool add_person(const sPerson& person) override;
 	bool add_person(const std::string& key, const sPerson& person) override;
 	bool find_person_by_id(sPerson::id_type unique_id, sPerson& result_person) override;

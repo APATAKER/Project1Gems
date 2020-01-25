@@ -6,7 +6,7 @@
 #include<algorithm>
 //#include<string>
 #include "../../utlity/sort/cSortLib.h"
-
+#include "../../utlity/Performance/PerformanceFunctions.h"
 
 
 bool cSTLMap::add_person(const sPerson& person)
@@ -17,13 +17,29 @@ bool cSTLMap::add_person(const sPerson& person)
 bool cSTLMap::add_person(const std::string& key, const sPerson& person)
 {
 //	people_[(key)] = person;
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+	
 	people_.insert(std::pair<std::string, sPerson>(key, person));
+
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+	
 	return true;
 }
 
 bool cSTLMap::find_person_by_id(sPerson::id_type unique_id, sPerson& result_person)
 {
 	auto flag = 0;
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+	
 	std::map<std::string,iPersonContainer::sPerson>::iterator it;
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
@@ -34,6 +50,12 @@ bool cSTLMap::find_person_by_id(sPerson::id_type unique_id, sPerson& result_pers
 			flag = 1;
 		}
 	}
+
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+	
 	if (flag == 1)
 		return true;
 	else
@@ -56,6 +78,11 @@ iPersonContainer::sPerson::size_type cSTLMap::size()
 bool cSTLMap::find_people(sPerson& person_to_match, std::vector<sPerson>& result_people, sPerson::size_type max_number_of_results)
 {
 	auto flag = 0;
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+	
 	std::map<std::string,iPersonContainer::sPerson>::iterator it;
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
@@ -82,6 +109,12 @@ bool cSTLMap::find_people(sPerson& person_to_match, std::vector<sPerson>& result
 				flag = 1;
 			}
 	}
+
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+	
 	if (flag == 1)
 		return true;
 	else
@@ -91,6 +124,11 @@ bool cSTLMap::find_people(sPerson& person_to_match, std::vector<sPerson>& result
 bool cSTLMap::find_people(sPerson::health_type min_health, sPerson::health_type max_health, std::vector<sPerson>& result_people, sPerson::size_type max_number_of_results)
 {
 	auto flag = 0;
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+	
 	std::map<std::string,iPersonContainer::sPerson>::iterator it;
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
@@ -102,6 +140,11 @@ bool cSTLMap::find_people(sPerson::health_type min_health, sPerson::health_type 
 				flag = 1;
 			}
 	}
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+	
 	if (flag == 1)
 		return true;
 	else
@@ -111,6 +154,11 @@ bool cSTLMap::find_people(sPerson::health_type min_health, sPerson::health_type 
 bool cSTLMap::find_people(sPerson::location_type& location, float radius, std::vector<sPerson>& result_people, sPerson::size_type max_number_of_results)
 {
 	auto flag = 0;
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+	
 	std::map<std::string,iPersonContainer::sPerson>::iterator it;
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
@@ -131,6 +179,11 @@ bool cSTLMap::find_people(sPerson::location_type& location, float radius, std::v
 
 		}
 	}
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+	
 	if (flag == 1)
 		return true;
 	else
@@ -140,6 +193,11 @@ bool cSTLMap::find_people(sPerson::location_type& location, float radius, std::v
 bool cSTLMap::find_people(sPerson::location_type& location, float radius, sPerson::health_type min_health, sPerson::health_type max_health, std::vector<sPerson>& result_people, sPerson::size_type max_number_of_results)
 {
 	auto flag = 0;
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+	
 	std::map<std::string,iPersonContainer::sPerson>::iterator it;
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
@@ -160,6 +218,11 @@ bool cSTLMap::find_people(sPerson::location_type& location, float radius, sPerso
 
 		}
 	}
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+	
 	if (flag == 1)
 		return true;
 	else
@@ -168,36 +231,13 @@ bool cSTLMap::find_people(sPerson::location_type& location, float radius, sPerso
 
 bool cSTLMap::get_last_call_performance(sPerformanceData& performance_data)
 {
-	auto const process = GetCurrentProcess();
-	PROCESS_MEMORY_COUNTERS counter;
-	const auto start_time = clock();
-
-	if (process == nullptr) {
-		return false;
-	}
-
-	if (GetProcessMemoryInfo(process, &counter, sizeof(counter))) {
-		printf("%lu bytes in use\n", counter.WorkingSetSize);
-
-		if (counter.WorkingSetSize < performance_data.memory_usage_bytes_min)
-			performance_data.memory_usage_bytes_min = counter.WorkingSetSize;
-
-		if (counter.WorkingSetSize > performance_data.memory_usage_bytes_max)
-			performance_data.memory_usage_bytes_max = counter.WorkingSetSize;
-
-
-		performance_data.memory_usage_bytes_avg = (performance_data.memory_usage_bytes_max
-			+ performance_data.memory_usage_bytes_min) / 2;
-
-		const auto end_time = clock();
-		const auto ticks = static_cast<float>(end_time) - static_cast<float>(start_time);
-
-		performance_data.elapsed_call_time_ms = ticks / CLOCKS_PER_SEC / 60;
+	cPerformanceData cPD;
+	auto flag = 0;
+	flag = cPD.printPreformanceData(performance_data);
+	if (flag = 1)
 		return true;
-	}
 	else
 	{
-
 		printf("There was an error getting performance data.\n");
 		return false;
 	}
@@ -205,6 +245,10 @@ bool cSTLMap::get_last_call_performance(sPerformanceData& performance_data)
 
 bool cSTLMap::sort_people(sort_function_type sort_function, std::vector<sPerson>& result_people)
 {
+	auto flag = 0;
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
 	
 	switch (sort_function)
 	{
@@ -221,7 +265,8 @@ bool cSTLMap::sort_people(sort_function_type sort_function, std::vector<sPerson>
 			iPersonContainer::sPerson itPerson = (*it).second;
 			result_people.push_back(itPerson);
 		}
-		return true;
+		flag = 1;
+		break;
 	}
 	case sort_function_type::desc_first_last:
 	{
@@ -236,7 +281,8 @@ bool cSTLMap::sort_people(sort_function_type sort_function, std::vector<sPerson>
 			iPersonContainer::sPerson itPerson = (*it).second;
 			result_people.push_back(itPerson);
 		}
-		return true;
+		flag = 1;
+		break;
 	}
 	case sort_function_type::asc_last_first:
 	{
@@ -251,7 +297,8 @@ bool cSTLMap::sort_people(sort_function_type sort_function, std::vector<sPerson>
 			iPersonContainer::sPerson itPerson = (*it).second;
 			result_people.push_back(itPerson);
 		}
-		return true;
+		flag = 1;
+		break;
 	}
 	case sort_function_type::desc_last_first:
 	{
@@ -266,7 +313,8 @@ bool cSTLMap::sort_people(sort_function_type sort_function, std::vector<sPerson>
 			iPersonContainer::sPerson itPerson = (*it).second;
 			result_people.push_back(itPerson);
 		}
-		return true;
+		flag = 1;
+		break;
 	}
 	case sort_function_type::asc_id:
 	{
@@ -281,7 +329,8 @@ bool cSTLMap::sort_people(sort_function_type sort_function, std::vector<sPerson>
 			iPersonContainer::sPerson itPerson = (*it).second;
 			result_people.push_back(itPerson);
 		}
-		return true;
+		flag = 1;
+		break;
 	}
 	case sort_function_type::desc_id:
 	{
@@ -296,7 +345,8 @@ bool cSTLMap::sort_people(sort_function_type sort_function, std::vector<sPerson>
 			iPersonContainer::sPerson itPerson = (*it).second;
 			result_people.push_back(itPerson);
 		}
-		return true;
+		flag = 1;
+		break;
 	}
 	case sort_function_type::asc_health:
 	{
@@ -311,7 +361,8 @@ bool cSTLMap::sort_people(sort_function_type sort_function, std::vector<sPerson>
 			iPersonContainer::sPerson itPerson = (*it).second;
 			result_people.push_back(itPerson);
 		}
-		return true;
+		flag = 1;
+		break;
 	}
 	case sort_function_type::desc_health:
 	{
@@ -326,10 +377,21 @@ bool cSTLMap::sort_people(sort_function_type sort_function, std::vector<sPerson>
 			iPersonContainer::sPerson itPerson = (*it).second;
 			result_people.push_back(itPerson);
 		}
-		return true;
+		flag = 1;
+		break;
 	}
 	default:
-		return false;
+		flag = 0;
+		break;
 	}
-	return false;
+
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+
+	if (flag == 1)
+		return true;
+	else
+		return false;
 }

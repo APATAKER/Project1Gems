@@ -224,18 +224,14 @@ bool cSTLVector::find_people(sPerson::location_type& location, float radius, sPe
 
 bool cSTLVector::get_last_call_performance(sPerformanceData& performance_data)
 {
-	performance_data = last_call_performance_;
-	if(performance_data.memory_usage_bytes_min != FLT_MAX)
-	{
-	std::cout << "Minimum memory usage :" <<std::fixed<< std::setprecision(2) << performance_data.memory_usage_bytes_min << std::endl;
-	std::cout << "Maximum memory usage :" <<std::fixed<< std::setprecision(2)<< performance_data.memory_usage_bytes_max << std::endl;
-	std::cout << "Average memory usage :" <<std::fixed<< std::setprecision(2)<< performance_data.memory_usage_bytes_avg << std::endl;
-	std::cout << "Elapsed CallTime MS :" << performance_data.elapsed_call_time_ms << std::endl;
+	
+	cPerformanceData cPD;
+	auto flag = 0;
+	flag = cPD.printPreformanceData(performance_data);
+	if (flag = 1)
 		return true;
-	}
 	else
 	{
-
 		printf("There was an error getting performance data.\n");
 		return false;
 	}

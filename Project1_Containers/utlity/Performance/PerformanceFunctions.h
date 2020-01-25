@@ -1,5 +1,6 @@
 #pragma once
 #include<interfaces/iPersonContainer.h>
+
 #include <ctime>
 #include <Windows.h>
 #include <psapi.h>
@@ -19,6 +20,8 @@ public:
 	void getLasttime();
 	void calcuCallTime(iPersonContainer::sPerformanceData* performance_data);
 	iPersonContainer::sPerformanceData Cperformance_data;
+
+	bool printPreformanceData(iPersonContainer::sPerformanceData pd);
 };
 
 
