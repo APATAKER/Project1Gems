@@ -50,12 +50,12 @@ bool cSortLib::sortByDescHp(const iPersonContainer::sPerson& lhs, const iPersonC
 
 void cSortLib::swap(iPersonContainer::sPerson* a, iPersonContainer::sPerson* b)
 {
-	iPersonContainer::sPerson *t = new iPersonContainer::sPerson();
-	*t =*a;
+	
+	auto t =*a;
 	*a = *b;
-	*b = *t;
+	*b = t;
 
-	delete t;
+	
 }
 
 size_t cSortLib::partition(iPersonContainer::sPerson* s_person, int low, int high, const iPersonContainer::sort_function_type sort_function)
@@ -166,6 +166,217 @@ size_t cSortLib::partition(iPersonContainer::sPerson* s_person, int low, int hig
 	return i + 1;
 }
 
+void cSortLib::merge(iPersonContainer::sPerson* s_person, int low, int middle, int high, const iPersonContainer::sort_function_type sort_function)
+{
+	int i, j, k;
+	int n1 = middle - low + 1;
+	int n2 = high - middle;
+
+	iPersonContainer::sPerson* L = new iPersonContainer::sPerson[n1];
+	iPersonContainer::sPerson* R = new iPersonContainer::sPerson[n2];
+
+	for (i = 0; i < n1; i++)
+		L[i] = s_person[low + i];
+	for (j = 0; j < n2; j++)
+		R[j] = s_person[middle + 1 + j];
+
+	i = 0;
+	j = 0;
+	k = low;
+	while(i < n1 && j < n2)
+	{
+		switch (sort_function)
+		{
+		case iPersonContainer::sort_function_type::asc_first_last:
+			if (L[i].first == R[j].first)
+			{
+				if (L[i].last <= R[j].last)
+				{
+					s_person[k] = L[i];
+					i++;
+				}
+				else
+				{
+					s_person[k] = R[j];
+					j++;
+				}
+				k++;
+			}
+			else
+			{
+				if (L[i].first <= R[j].first)
+				{
+					s_person[k] = L[i];
+					i++;
+				}
+				else
+				{
+					s_person[k] = R[j];
+					j++;
+				}
+				k++;
+			}
+			break;
+		case iPersonContainer::sort_function_type::desc_first_last:
+			if (L[i].first == R[j].first)
+			{
+				if (L[i].last >= R[j].last)
+				{
+					s_person[k] = L[i];
+					i++;
+				}
+				else
+				{
+					s_person[k] = R[j];
+					j++;
+				}
+				k++;
+			}
+			else
+			{
+				if (L[i].first >= R[j].first)
+				{
+					s_person[k] = L[i];
+					i++;
+				}
+				else
+				{
+					s_person[k] = R[j];
+					j++;
+				}
+				k++;
+			}
+			break;
+		case iPersonContainer::sort_function_type::asc_last_first:
+			if (L[i].last == R[j].last)
+			{
+				if (L[i].first <= R[j].first)
+				{
+					s_person[k] = L[i];
+					i++;
+				}
+				else
+				{
+					s_person[k] = R[j];
+					j++;
+				}
+				k++;
+			}
+			else
+			{
+				if (L[i].last <= R[j].last)
+				{
+					s_person[k] = L[i];
+					i++;
+				}
+				else
+				{
+					s_person[k] = R[j];
+					j++;
+				}
+				k++;
+			}
+			break;
+		case iPersonContainer::sort_function_type::desc_last_first:
+			if (L[i].last == R[j].last)
+			{
+				if (L[i].first >= R[j].first)
+				{
+					s_person[k] = L[i];
+					i++;
+				}
+				else
+				{
+					s_person[k] = R[j];
+					j++;
+				}
+				k++;
+			}
+			else
+			{
+				if (L[i].last >= R[j].last)
+				{
+					s_person[k] = L[i];
+					i++;
+				}
+				else
+				{
+					s_person[k] = R[j];
+					j++;
+				}
+				k++;
+			}
+			break;
+		case iPersonContainer::sort_function_type::asc_id:
+			if (L[i].unique_id <= R[i].unique_id)
+			{
+				s_person[k] = L[i];
+				i++;
+			}
+			else
+			{
+				s_person[k] = R[j];
+				j++;
+			}
+			k++;
+			break;
+		case iPersonContainer::sort_function_type::desc_id:
+			if (L[i].unique_id >= R[i].unique_id)
+			{
+				s_person[k] = L[i];
+				i++;
+			}
+			else
+			{
+				s_person[k] = R[j];
+				j++;
+			}
+			k++;
+			break;
+		case iPersonContainer::sort_function_type::asc_health:
+			if (L[i].health <= R[i].health)
+			{
+				s_person[k] = L[i];
+				i++;
+			}
+			else
+			{
+				s_person[k] = R[j];
+				j++;
+			}
+			k++;
+			break;
+		case iPersonContainer::sort_function_type::desc_health:
+			if (L[i].health >= R[i].health)
+			{
+				s_person[k] = L[i];
+				i++;
+			}
+			else
+			{
+				s_person[k] = R[j];
+				j++;
+			}
+			k++;
+			break;
+		}
+	}
+
+	while(i<n1)
+	{
+		s_person[k] = L[i];
+		i++;
+		k++;
+	}
+
+	while(j<n2)
+	{
+		s_person[k] = R[j];
+		j++;
+		k++;
+	}
+}
+
 void cSortLib::qSort(iPersonContainer::sPerson* s_person, int low, int high,const iPersonContainer::sort_function_type sort_function)
 {
 	if(low<high)
@@ -174,6 +385,207 @@ void cSortLib::qSort(iPersonContainer::sPerson* s_person, int low, int high,cons
 
 		qSort(s_person, low, (pi - 1),sort_function);
 		qSort(s_person, (pi + 1), high, sort_function);
+	}
+}
+
+void cSortLib::bSort(iPersonContainer::sPerson* s_person, int size, const iPersonContainer::sort_function_type sort_function)
+{
+	int i, j;
+	for(i=0;i<size-1;i++)
+		for(j=0;j<size-i-1;j++)
+		{
+			switch (sort_function)
+			{
+			case iPersonContainer::sort_function_type::asc_first_last:
+				if (s_person[j].first == s_person[j+1].first)
+				{
+					if (s_person[j].last < s_person[j+1].last)
+					{	
+						swap(&s_person[j], &s_person[j+1]);
+					}
+				}
+				else
+					if (s_person[j].first < s_person[j + 1].first)
+					{
+						swap(&s_person[j], &s_person[j+1]);
+					}
+				break;
+			case iPersonContainer::sort_function_type::desc_first_last:
+				if (s_person[j].first == s_person[j + 1].first)
+				{
+					if (s_person[j].last > s_person[j + 1].last)
+					{
+						swap(&s_person[j], &s_person[j+1]);
+					}
+				}
+				else
+					if (s_person[j].first > s_person[j + 1].first)
+					{
+						swap(&s_person[j], &s_person[j+1]);
+					}
+				break;
+			case iPersonContainer::sort_function_type::asc_last_first:
+				if (s_person[j].last == s_person[j + 1].last)
+				{
+					if (s_person[j].first < s_person[j + 1].first)
+					{
+						swap(&s_person[j], &s_person[j+1]);
+					}
+				}
+				else
+					if (s_person[j].last < s_person[j + 1].last)
+					{
+						swap(&s_person[j], &s_person[j+1]);
+					}
+				break;
+			case iPersonContainer::sort_function_type::desc_last_first:
+				if (s_person[j].last == s_person[j + 1].last)
+				{
+					if (s_person[j].first > s_person[j + 1].first)
+					{
+						swap(&s_person[j], &s_person[j+1]);
+					}
+				}
+				else
+					if (s_person[j].last > s_person[j + 1].last)
+					{
+						swap(&s_person[j], &s_person[j+1]);
+					}
+				break;
+			case iPersonContainer::sort_function_type::asc_id:
+				if (s_person[j].unique_id < s_person[j + 1].unique_id)
+				{
+					swap(&s_person[j], &s_person[j+1]);
+				}
+				break;
+			case iPersonContainer::sort_function_type::desc_id:
+				if (s_person[j].unique_id > s_person[j + 1].unique_id)
+				{
+					swap(&s_person[j], &s_person[j+1]);
+				}
+				break;
+			case iPersonContainer::sort_function_type::asc_health:
+				if (s_person[j].health < s_person[j + 1].health)
+				{
+					swap(&s_person[j], &s_person[j+1]);
+				}
+				break;
+			case iPersonContainer::sort_function_type::desc_health:
+				if (s_person[j].health > s_person[j + 1].health)
+				{
+					swap(&s_person[j], &s_person[j+1]);
+				}
+				break;
+			}
+		}
+}
+
+void cSortLib::sSort(iPersonContainer::sPerson* s_person, int size, const iPersonContainer::sort_function_type sort_function)
+{
+	int i, j,min_i;
+	for(i=0;i<size-1;i++)
+	{
+		min_i = i;
+		for(j=i+1;j<size;j++)
+		{
+			switch (sort_function)
+			{
+			case iPersonContainer::sort_function_type::asc_first_last:
+				if (s_person[j].first == s_person[min_i].first)
+				{
+					if (s_person[j].last < s_person[min_i].last)
+					{
+						min_i=j;
+					}
+				}
+				else
+					if (s_person[j].first < s_person[min_i].first)
+					{
+						min_i=j;
+					}
+				break;
+			case iPersonContainer::sort_function_type::desc_first_last:
+				if (s_person[j].first == s_person[min_i].first)
+				{
+					if (s_person[j].last > s_person[min_i].last)
+					{
+						min_i=j;
+					}
+				}
+				else
+					if (s_person[j].first > s_person[min_i].first)
+					{
+						min_i=j;
+					}
+				break;
+			case iPersonContainer::sort_function_type::asc_last_first:
+				if (s_person[j].last == s_person[min_i].last)
+				{
+					if (s_person[j].first < s_person[min_i].first)
+					{
+						min_i=j;
+					}
+				}
+				else
+					if (s_person[j].last < s_person[min_i].last)
+					{
+						min_i=j;
+					}
+				break;
+			case iPersonContainer::sort_function_type::desc_last_first:
+				if (s_person[j].last == s_person[min_i].last)
+				{
+					if (s_person[j].first > s_person[min_i].first)
+					{
+						min_i=j;
+					}
+				}
+				else
+					if (s_person[j].last > s_person[min_i].last)
+					{
+						min_i=j;
+					}
+				break;
+			case iPersonContainer::sort_function_type::asc_id:
+				if (s_person[j].unique_id < s_person[min_i].unique_id)
+				{
+					min_i=j;
+				}
+				break;
+			case iPersonContainer::sort_function_type::desc_id:
+				if (s_person[j].unique_id > s_person[min_i].unique_id)
+				{
+					min_i=j;
+				}
+				break;
+			case iPersonContainer::sort_function_type::asc_health:
+				if (s_person[j].health < s_person[min_i].health)
+				{
+					min_i=j;
+				}
+				break;
+			case iPersonContainer::sort_function_type::desc_health:
+				if (s_person[j].health > s_person[min_i].health)
+				{
+					min_i=j;
+				}
+				break;
+			}
+		}
+		swap(&s_person[min_i], &s_person[i]);
+	}
+}
+
+void cSortLib::mSort(iPersonContainer::sPerson* s_person, int low, int high, const iPersonContainer::sort_function_type sort_function)
+{
+	if(low<high)
+	{
+		int middle = low + (high - low) / 2;
+
+		mSort(s_person, low, middle,sort_function);
+		mSort(s_person, middle + 1, high, sort_function);
+
+		merge(s_person, low, middle, high, sort_function);
 	}
 }
 

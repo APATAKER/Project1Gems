@@ -15,12 +15,20 @@ static bool sortByDescHp(const iPersonContainer::sPerson& lhs, const iPersonCont
 //static void pushToVecFromMap(const )
 
 
-	//Quick Sort
-void swap(iPersonContainer::sPerson* a, iPersonContainer::sPerson* b);
+	// Different Sorting methods
 
-size_t partition(iPersonContainer::sPerson* s_person, int low, int high,
+	void swap(iPersonContainer::sPerson* a, iPersonContainer::sPerson* b);
+	size_t partition(iPersonContainer::sPerson* s_person, int low, int high,
 									const iPersonContainer::sort_function_type sort_function);
-void qSort(iPersonContainer::sPerson* s_person, int low, int high,
+	void merge(iPersonContainer::sPerson* s_person, int low, int middle, int high, const iPersonContainer::sort_function_type sort_function);
+	
+	void qSort(iPersonContainer::sPerson* s_person, int low, int high, //Quick sort
 		   const iPersonContainer::sort_function_type sort_function);
+	void bSort(iPersonContainer::sPerson* s_person, int size,			//Bubble sort
+		const iPersonContainer::sort_function_type sort_function);
+	void sSort(iPersonContainer::sPerson* s_person, int size,			//Selection sort
+		const iPersonContainer::sort_function_type sort_function);
+	void mSort(iPersonContainer::sPerson* s_person, int low, int high,	//Merge Sort
+		const iPersonContainer::sort_function_type sort_function);
 
 };

@@ -275,47 +275,9 @@ bool cDIYVector::sort_people(const sort_function_type sort_function, std::vector
 	PD.startPerformance(&PD.Cperformance_data);
 
 	cSortLib slib;
-	//result_people = people_;
-	/*switch (sort_function)
-	{
-	case sort_function_type::asc_first_last:
-		
-		slib.qSort(people_, 0, size_, sort_function);
-		flag = 1;
-		break;
-	case sort_function_type::desc_first_last:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescFirst);
-		flag = 1;
-		break;
-	case sort_function_type::asc_last_first:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscLast);
-		flag = 1;
-		break;
-	case sort_function_type::desc_last_first:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescLast);
-		flag = 1;
-		break;
-	case sort_function_type::asc_id:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscId);
-		flag = 1;
-		break;
-	case sort_function_type::desc_id:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescId);
-		flag = 1;
-		break;
-	case sort_function_type::asc_health:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByAscHp);
-		flag = 1;
-		break;
-	case sort_function_type::desc_health:
-		std::sort(result_people.begin(), result_people.end(), cSortLib::sortByDescHp);
-		flag = 1;
-		break;
-	default:
-		break;
-	}*/
-
-	slib.qSort(people_, 0, size_, sort_function);
+	
+	slib.mSort(people_, 0, size_, sort_function);
+	//slib.sSort(people_, size_, sort_function);
 
 	for(int i=0;i<size_;i++)
 	{
