@@ -4,6 +4,8 @@
 #include<stl/list/cSTLList.h>
 #include<stl/map/cSTLMap.h>
 
+#include <diy/vector/cDIYVector.h>
+#include <diy/map/cDIYMap.h>
 #include<diy/list/cDIYList.h>
 #include<iostream>
 
@@ -15,21 +17,21 @@
 
 int main(int argc, char* argv[])
 {	
-	auto* container = new cSTLMap();
+	auto* container = new cDIYVector();
 	
 	std::mt19937 rng{ std::random_device{}() };
 	std::uniform_int_distribution<int> dist{ 0,999 };
 	auto randomgen = [&rng, &dist]() {return  dist(rng); };
 
-	for (int i = 0; i < 100000; i++)
+	for (int i = 0; i < 1000; i++)
 	{
 	iPersonContainer::sPerson person;
 	person.unique_id = i;
 	person.first = "John";
 	person.last = "Doe";
 	person.age = 30;
-	//container->add_person(person);     // for map
-	container->add_person(std::to_string(i), person);  // for vector and list
+	container->add_person(person);     // for vector and list
+	//container->add_person(std::to_string(i), person);  // for map
 	}
 	iPersonContainer::sPerson person;
 	person.unique_id = 2;

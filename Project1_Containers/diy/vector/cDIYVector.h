@@ -25,6 +25,7 @@ public:
 public:
 
 	bool add_person(const sPerson& person) override;
+	bool add_person(const std::string& key, const sPerson& person) override;
 	bool find_person_by_id(sPerson::id_type unique_id, sPerson& result_person) override;
 	bool empty() override;
 	sPerson::size_type size() override;
