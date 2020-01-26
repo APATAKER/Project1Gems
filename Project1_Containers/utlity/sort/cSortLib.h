@@ -1,8 +1,9 @@
 #pragma once
 #include<interfaces/iPersonContainer.h>
+#include "../Project1_Containers/diy/list/cDIYList.h"
 
 class cSortLib {
-
+	
 public:
 static bool sortByAscFirst(const iPersonContainer::sPerson& lhs, const iPersonContainer::sPerson& rhs);
 static bool sortByDescFirst(const iPersonContainer::sPerson& lhs, const iPersonContainer::sPerson& rhs);
@@ -20,6 +21,8 @@ static bool sortByDescHp(const iPersonContainer::sPerson& lhs, const iPersonCont
 	void swap(iPersonContainer::sPerson* a, iPersonContainer::sPerson* b);
 	size_t partition(iPersonContainer::sPerson* s_person, int low, int high,
 									const iPersonContainer::sort_function_type sort_function);
+	struct sNode* partition(struct sNode* rootnode, struct sNode* lastnode, struct sNode** newHead, struct sNode** newEnd,
+							iPersonContainer::sort_function_type sort_function);
 	void merge(iPersonContainer::sPerson* s_person, int low, int middle, int high, const iPersonContainer::sort_function_type sort_function);
 	
 	void qSort(iPersonContainer::sPerson* s_person, int low, int high, //Quick sort

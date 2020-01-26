@@ -58,6 +58,8 @@ void cSortLib::swap(iPersonContainer::sPerson* a, iPersonContainer::sPerson* b)
 	
 }
 
+
+
 size_t cSortLib::partition(iPersonContainer::sPerson* s_person, int low, int high, const iPersonContainer::sort_function_type sort_function)
 {
 	
@@ -165,6 +167,12 @@ size_t cSortLib::partition(iPersonContainer::sPerson* s_person, int low, int hig
 	swap(&s_person[i + 1], &s_person[high]);
 	return i + 1;
 }
+
+
+
+
+
+
 
 void cSortLib::merge(iPersonContainer::sPerson* s_person, int low, int middle, int high, const iPersonContainer::sort_function_type sort_function)
 {

@@ -18,8 +18,6 @@ public:
 	~cDIYVector();
 
 	sPerformanceData last_call_performance_;
-	//std::vector<iPersonContainer::sPerson> people_;
-	//std::vector<iPersonContainer::sPerson> capacity_;
 
 	using people_container_sort_predicate = bool(*)(const sPerson & lhs, const sPerson & rhs);
 public:

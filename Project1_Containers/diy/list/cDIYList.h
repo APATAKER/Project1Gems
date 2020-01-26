@@ -5,6 +5,7 @@
 
 class cDIYList :public iPersonContainer
 {
+
 	struct sNode
 	{
 		sNode() :next_node(nullptr) {}
@@ -19,7 +20,7 @@ class cDIYList :public iPersonContainer
 
 public:
 	cDIYList() :root_node(nullptr),last_node(nullptr),size_(0) {}
-
+	sPerformanceData last_call_performance_;
 
 	bool add_person(const sPerson& person) override;
 	bool add_person(const std::string& key, const sPerson& person) override;
