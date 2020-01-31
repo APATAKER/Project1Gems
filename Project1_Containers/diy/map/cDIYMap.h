@@ -3,12 +3,17 @@
 
 class cDIYMap : public iPersonContainer
 {
-	class cHaseNode
+	struct sHNode
 	{
-		cHaseNode* nextnode;
+		sHNode* next_node;
+		
 		sPerson data;
 		std::string key;
 	};
+
+	sHNode* root_node;
+	sHNode* last_node;
+	size_t size_;
 public:
 	sPerformanceData last_call_performance_;
 

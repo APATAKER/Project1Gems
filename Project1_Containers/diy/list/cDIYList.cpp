@@ -251,6 +251,7 @@ bool cDIYList::find_people(sPerson::location_type& location, float radius, sPers
 
 bool cDIYList::get_last_call_performance(sPerformanceData& performance_data)
 {
+	performance_data = last_call_performance_;
 	cPerformanceData cPD;
 	auto flag = 0;
 	flag = cPD.printPreformanceData(performance_data);
