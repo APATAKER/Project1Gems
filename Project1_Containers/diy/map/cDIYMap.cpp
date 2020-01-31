@@ -34,7 +34,9 @@ bool cDIYMap::add_person(const std::string& key, const sPerson& person)
 			if (temp->key == key)
 			{
 				dup = 1;
+				
 			}
+			temp = temp->next_node;
 		}
 		if(dup != 1)
 		{

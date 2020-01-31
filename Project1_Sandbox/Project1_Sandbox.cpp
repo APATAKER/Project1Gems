@@ -17,23 +17,23 @@
 
 int main(int argc, char* argv[])
 {	
-	auto* container = new cDIYVector();
+	auto* container = new cDIYMap();
 	
 	std::mt19937 rng{ std::random_device{}() };
 	std::uniform_int_distribution<int> dist{ 0,999 };
 	auto randomgen = [&rng, &dist]() {return  dist(rng); };
 
-	for (int i = 0; i < 100000; i++)
+	for (int i = 0; i < 100; i++)
 	{
 	iPersonContainer::sPerson person;
 	person.unique_id = i;
 	person.first = "John";
 	person.last = "Doe";
 	person.age = 30;
-	container->add_person(person);     // for vector and list
-	//container->add_person(std::to_string(i), person);  // for map
+	//container->add_person(person);     // for vector and list
+	container->add_person(std::to_string(i), person);  // for map
 	}
-	iPersonContainer::sPerson person;
+	/*iPersonContainer::sPerson person;
 	person.unique_id = 2;
 	person.first = "Bam";
 	person.last = "gore";
@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
 	person.first = "willy";
 	person.last = "Axe";
 	person.age = 40;
-	container->add_person(person);
+	container->add_person(person);*/
 	std::vector<iPersonContainer::sPerson> result;
 	container->sort_people(iPersonContainer::e_sort_types::desc_id, result);
 	container->get_last_call_performance(container->last_call_performance_);

@@ -5,10 +5,12 @@ class cDIYMap : public iPersonContainer
 {
 	struct sHNode
 	{
+		sHNode() :next_node(nullptr) {}
+
 		sHNode* next_node;
-		
 		sPerson data;
 		std::string key;
+		
 	};
 
 	sHNode* root_node;
