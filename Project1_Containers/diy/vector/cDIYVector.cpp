@@ -67,7 +67,7 @@ bool cDIYVector::find_person_by_id(const sPerson::id_type unique_id, sPerson& re
 	PD.getStartTime();
 	PD.startPerformance(&PD.Cperformance_data);
 	
-	for (int i = 0; i <= size_; i++)
+	for (int i = 0; i < size_; i++)
 	{
 		sPerson itPerson= *(people_ + i);
 		if (unique_id == itPerson.unique_id)
@@ -98,7 +98,7 @@ bool cDIYVector::empty()
 
 iPersonContainer::sPerson::size_type cDIYVector::size()
 {
-	return (size_+1);
+	return (size_);
 }
 
 bool cDIYVector::find_people(sPerson& person_to_match, std::vector<sPerson>& result_people,
@@ -276,8 +276,8 @@ bool cDIYVector::sort_people(const sort_function_type sort_function, std::vector
 
 	cSortLib slib;
 	
-	slib.mSort(people_, 0, size_, sort_function);
-	//slib.sSort(people_, size_, sort_function);
+	//slib.mSort(people_, 0, size_, sort_function);
+	slib.sSort(people_, size_, sort_function);
 
 	for(int i=0;i<size_;i++)
 	{

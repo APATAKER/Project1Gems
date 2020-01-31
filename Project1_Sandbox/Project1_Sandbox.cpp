@@ -17,13 +17,13 @@
 
 int main(int argc, char* argv[])
 {	
-	auto* container = new cDIYList();
+	auto* container = new cDIYVector();
 	
 	std::mt19937 rng{ std::random_device{}() };
 	std::uniform_int_distribution<int> dist{ 0,999 };
 	auto randomgen = [&rng, &dist]() {return  dist(rng); };
 
-	for (int i = 0; i < 1000000; i++)
+	for (int i = 0; i < 100000; i++)
 	{
 	iPersonContainer::sPerson person;
 	person.unique_id = i;
