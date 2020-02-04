@@ -274,6 +274,15 @@ bool cDIYList::sort_people(sort_function_type sort_function, std::vector<sPerson
 
 	cSortLib slib;
 
+	slib.bLinkedSort(root_node,sort_function);
+
+	sNode* temp = root_node;
+	while(temp)
+	{
+		result_people.push_back(temp->data);
+		temp = temp->next_node;
+	}
+	flag = 1;
 	
 
 

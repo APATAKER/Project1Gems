@@ -6,6 +6,8 @@
 class cDIYList :public iPersonContainer
 {
 
+
+public:
 	struct sNode
 	{
 		sNode() :next_node(nullptr) {}
@@ -13,12 +15,10 @@ class cDIYList :public iPersonContainer
 		sNode* next_node;
 		sPerson data;
 	};
-
 	sNode* root_node;
 	sNode* last_node;
 	size_t size_;
 
-public:
 	cDIYList() :root_node(nullptr),last_node(nullptr),size_(0) {}
 	sPerformanceData last_call_performance_;
 

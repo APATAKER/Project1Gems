@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include<float.h>
+//#include<float.h>
 
 /**
  * \brief this is the interface for all your containers

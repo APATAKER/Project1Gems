@@ -19,6 +19,7 @@ static bool sortByDescHp(const iPersonContainer::sPerson& lhs, const iPersonCont
 	// Different Sorting methods
 
 	void swap(iPersonContainer::sPerson* a, iPersonContainer::sPerson* b);
+	void swap(struct cDIYList::sNode* a, struct cDIYList::sNode* b);
 	size_t partition(iPersonContainer::sPerson* s_person, int low, int high,
 									const iPersonContainer::sort_function_type sort_function);
 	struct sNode* partition(struct sNode* rootnode, struct sNode* lastnode, struct sNode** newHead, struct sNode** newEnd,
@@ -33,5 +34,7 @@ static bool sortByDescHp(const iPersonContainer::sPerson& lhs, const iPersonCont
 		const iPersonContainer::sort_function_type sort_function);
 	void mSort(iPersonContainer::sPerson* s_person, int low, int high,	//Merge Sort
 		const iPersonContainer::sort_function_type sort_function);
+
+	void bLinkedSort(struct cDIYList::sNode *root, const iPersonContainer::sort_function_type sort_function);
 
 };

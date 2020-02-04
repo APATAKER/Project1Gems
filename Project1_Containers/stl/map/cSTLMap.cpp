@@ -41,6 +41,7 @@ bool cSTLMap::find_person_by_id(sPerson::id_type unique_id, sPerson& result_pers
 	PD.startPerformance(&PD.Cperformance_data);
 	
 	std::map<std::string,iPersonContainer::sPerson>::iterator it;
+	
 	for (it = people_.begin(); it != people_.end(); it++)
 	{
 		iPersonContainer::sPerson itPeople = (*it).second;
