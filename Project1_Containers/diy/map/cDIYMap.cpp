@@ -1,5 +1,6 @@
 ﻿#include "cDIYMap.h"
 #include "../../utlity/Performance/PerformanceFunctions.h"
+#include "../../utlity/sort/cSortLib.h"
 
 bool cDIYMap::add_person(const sPerson& person)
 {
@@ -282,5 +283,37 @@ bool cDIYMap::get_last_call_performance(sPerformanceData& performance_data)
 
 bool cDIYMap::sort_people(sort_function_type sort_function, std::vector<sPerson>& result_people)
 {
-	return false;
+	auto flag = 0;
+
+	cPerformanceData PD;
+	PD.getStartTime();
+	PD.startPerformance(&PD.Cperformance_data);
+
+	cSortLib slib;
+
+	slib.bMapSort(root_node, sort_function);
+
+	sHNode* temp = root_node;
+	while (temp)
+	{
+		result_people.push_back(temp->data);
+		temp = temp->next_node;
+	}
+	flag = 1;
+
+
+
+	PD.startPerformance(&PD.Cperformance_data);
+	PD.getLasttime();
+	PD.calcuCallTime(&PD.Cperformance_data);
+	last_call_performance_ = PD.Cperformance_data;
+
+	if (flag == 1)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

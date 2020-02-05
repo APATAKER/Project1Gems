@@ -1,6 +1,7 @@
 #pragma once
 #include<interfaces/iPersonContainer.h>
 #include "../Project1_Containers/diy/list/cDIYList.h"
+#include "../Project1_Containers/diy/map/cDIYMap.h"
 
 class cSortLib {
 	
@@ -17,9 +18,21 @@ static bool sortByDescHp(const iPersonContainer::sPerson& lhs, const iPersonCont
 
 
 	// Different Sorting methods
+template<typename  T>
+	void Swap(T *a,T *b)
+		{
+			T t = *a;
+			*a = *b;
+			*b = t;
+		}
 
-	void swap(iPersonContainer::sPerson* a, iPersonContainer::sPerson* b);
+
+
+	
 	void swap(struct cDIYList::sNode* a, struct cDIYList::sNode* b);
+	void swap(struct cDIYMap::sHNode* a, struct cDIYMap::sHNode* b);
+	void swap(iPersonContainer::sPerson* a, iPersonContainer::sPerson* b);
+	
 	size_t partition(iPersonContainer::sPerson* s_person, int low, int high,
 									const iPersonContainer::sort_function_type sort_function);
 	struct sNode* partition(struct sNode* rootnode, struct sNode* lastnode, struct sNode** newHead, struct sNode** newEnd,
@@ -36,5 +49,7 @@ static bool sortByDescHp(const iPersonContainer::sPerson& lhs, const iPersonCont
 		const iPersonContainer::sort_function_type sort_function);
 
 	void bLinkedSort(struct cDIYList::sNode *root, const iPersonContainer::sort_function_type sort_function);
+
+	void bMapSort(struct cDIYMap::sHNode* root, const iPersonContainer::sort_function_type sort_function);
 
 };

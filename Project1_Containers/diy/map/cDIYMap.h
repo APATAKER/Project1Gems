@@ -3,6 +3,7 @@
 
 class cDIYMap : public iPersonContainer
 {
+public:
 	struct sHNode
 	{
 		sHNode() :next_node(nullptr) {}
@@ -16,7 +17,6 @@ class cDIYMap : public iPersonContainer
 	sHNode* root_node;
 	sHNode* last_node;
 	size_t size_;
-public:
 	sPerformanceData last_call_performance_;
 
 	bool add_person(const sPerson& person) override;

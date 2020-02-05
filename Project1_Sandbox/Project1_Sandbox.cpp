@@ -17,7 +17,7 @@
 
 int main(int argc, char* argv[])
 {	
-	auto* container = new cSTLMap();
+	auto* container = new cDIYMap();
 	
 	std::mt19937 rng{ std::random_device{}() };
 	std::uniform_int_distribution<int> dist{ 0,999 };
@@ -50,10 +50,10 @@ int main(int argc, char* argv[])
 	iPersonContainer::sPerson res;
 	container->find_person_by_id(2, res);
 	std::cout << std::endl<< res.first << std::endl;
-	for (int i = 0; i < result.size(); i++)
+	/*for (int i = 0; i < result.size(); i++)
 	{
 		std::cout << result[i].unique_id << std::endl;
-	}
+	}*/
 	
 	container->get_last_call_performance(container->last_call_performance_);
 	delete container;
