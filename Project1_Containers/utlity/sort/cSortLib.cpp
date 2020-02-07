@@ -634,25 +634,10 @@ void cSortLib::bLinkedSort(cDIYList::sNode* root, const iPersonContainer::sort_f
 			case iPersonContainer::sort_function_type::asc_first_last:
 				if (ptr1->data.first == ptr1->next_node->data.first)
 				{
-					if (ptr1->data.last < ptr1->next_node->data.last)
-					{
-						swap(ptr1, ptr1->next_node);
-							swaped = 1;
-					}
-				}
-				else if (ptr1->data.first < ptr1->next_node->data.first)
-				{
-					swap(ptr1, ptr1->next_node);
-					swaped = 1;
-				}
-				break;
-			case iPersonContainer::sort_function_type::desc_first_last:
-				if (ptr1->data.first == ptr1->next_node->data.first)
-				{
 					if (ptr1->data.last > ptr1->next_node->data.last)
 					{
 						swap(ptr1, ptr1->next_node);
-						swaped = 1;
+							swaped = 1;
 					}
 				}
 				else if (ptr1->data.first > ptr1->next_node->data.first)
@@ -661,22 +646,22 @@ void cSortLib::bLinkedSort(cDIYList::sNode* root, const iPersonContainer::sort_f
 					swaped = 1;
 				}
 				break;
-			case iPersonContainer::sort_function_type::asc_last_first:
-				if (ptr1->data.last == ptr1->next_node->data.last)
+			case iPersonContainer::sort_function_type::desc_first_last:
+				if (ptr1->data.first == ptr1->next_node->data.first)
 				{
-					if (ptr1->data.first < ptr1->next_node->data.first)
+					if (ptr1->data.last < ptr1->next_node->data.last)
 					{
 						swap(ptr1, ptr1->next_node);
 						swaped = 1;
 					}
 				}
-				else if (ptr1->data.last < ptr1->next_node->data.last)
+				else if (ptr1->data.first < ptr1->next_node->data.first)
 				{
 					swap(ptr1, ptr1->next_node);
 					swaped = 1;
 				}
 				break;
-			case iPersonContainer::sort_function_type::desc_last_first:
+			case iPersonContainer::sort_function_type::asc_last_first:
 				if (ptr1->data.last == ptr1->next_node->data.last)
 				{
 					if (ptr1->data.first > ptr1->next_node->data.first)
@@ -691,29 +676,44 @@ void cSortLib::bLinkedSort(cDIYList::sNode* root, const iPersonContainer::sort_f
 					swaped = 1;
 				}
 				break;
+			case iPersonContainer::sort_function_type::desc_last_first:
+				if (ptr1->data.last == ptr1->next_node->data.last)
+				{
+					if (ptr1->data.first < ptr1->next_node->data.first)
+					{
+						swap(ptr1, ptr1->next_node);
+						swaped = 1;
+					}
+				}
+				else if (ptr1->data.last < ptr1->next_node->data.last)
+				{
+					swap(ptr1, ptr1->next_node);
+					swaped = 1;
+				}
+				break;
 			case iPersonContainer::sort_function_type::asc_id:
-				if(ptr1->data.unique_id < ptr1->next_node->data.unique_id)
+				if(ptr1->data.unique_id > ptr1->next_node->data.unique_id)
 				{
 					swap(ptr1, ptr1->next_node);
 					swaped = 1;
 				}
 				break;
 			case iPersonContainer::sort_function_type::desc_id:
-				if (ptr1->data.unique_id > ptr1->next_node->data.unique_id)
+				if (ptr1->data.unique_id < ptr1->next_node->data.unique_id)
 				{
 					swap(ptr1, ptr1->next_node);
 					swaped = 1;
 				}
 				break;
 			case iPersonContainer::sort_function_type::asc_health:
-				if (ptr1->data.health < ptr1->next_node->data.health)
+				if (ptr1->data.health > ptr1->next_node->data.health)
 				{
 					swap(ptr1, ptr1->next_node);
 					swaped = 1;
 				}
 				break;
 			case iPersonContainer::sort_function_type::desc_health:
-				if (ptr1->data.health > ptr1->next_node->data.health)
+				if (ptr1->data.health < ptr1->next_node->data.health)
 				{
 					swap(ptr1, ptr1->next_node);
 					swaped = 1;
@@ -746,21 +746,6 @@ void cSortLib::bMapSort(cDIYMap::sHNode* root, const iPersonContainer::sort_func
 			case iPersonContainer::sort_function_type::asc_first_last:
 				if (ptr1->data.first == ptr1->next_node->data.first)
 				{
-					if (ptr1->data.last < ptr1->next_node->data.last)
-					{
-						swap(ptr1, ptr1->next_node);
-						swaped = 1;
-					}
-				}
-				else if (ptr1->data.first < ptr1->next_node->data.first)
-				{
-					swap(ptr1, ptr1->next_node);
-					swaped = 1;
-				}
-				break;
-			case iPersonContainer::sort_function_type::desc_first_last:
-				if (ptr1->data.first == ptr1->next_node->data.first)
-				{
 					if (ptr1->data.last > ptr1->next_node->data.last)
 					{
 						swap(ptr1, ptr1->next_node);
@@ -773,22 +758,22 @@ void cSortLib::bMapSort(cDIYMap::sHNode* root, const iPersonContainer::sort_func
 					swaped = 1;
 				}
 				break;
-			case iPersonContainer::sort_function_type::asc_last_first:
-				if (ptr1->data.last == ptr1->next_node->data.last)
+			case iPersonContainer::sort_function_type::desc_first_last:
+				if (ptr1->data.first == ptr1->next_node->data.first)
 				{
-					if (ptr1->data.first < ptr1->next_node->data.first)
+					if (ptr1->data.last < ptr1->next_node->data.last)
 					{
 						swap(ptr1, ptr1->next_node);
 						swaped = 1;
 					}
 				}
-				else if (ptr1->data.last < ptr1->next_node->data.last)
+				else if (ptr1->data.first < ptr1->next_node->data.first)
 				{
 					swap(ptr1, ptr1->next_node);
 					swaped = 1;
 				}
 				break;
-			case iPersonContainer::sort_function_type::desc_last_first:
+			case iPersonContainer::sort_function_type::asc_last_first:
 				if (ptr1->data.last == ptr1->next_node->data.last)
 				{
 					if (ptr1->data.first > ptr1->next_node->data.first)
@@ -803,29 +788,44 @@ void cSortLib::bMapSort(cDIYMap::sHNode* root, const iPersonContainer::sort_func
 					swaped = 1;
 				}
 				break;
-			case iPersonContainer::sort_function_type::asc_id:
-				if (std::to_string(ptr1->data.unique_id) < std::to_string(ptr1->next_node->data.unique_id))
+			case iPersonContainer::sort_function_type::desc_last_first:
+				if (ptr1->data.last == ptr1->next_node->data.last)
+				{
+					if (ptr1->data.first < ptr1->next_node->data.first)
+					{
+						swap(ptr1, ptr1->next_node);
+						swaped = 1;
+					}
+				}
+				else if (ptr1->data.last < ptr1->next_node->data.last)
 				{
 					swap(ptr1, ptr1->next_node);
 					swaped = 1;
 				}
 				break;
-			case iPersonContainer::sort_function_type::desc_id:
+			case iPersonContainer::sort_function_type::asc_id:
 				if (std::to_string(ptr1->data.unique_id) > std::to_string(ptr1->next_node->data.unique_id))
 				{
 					swap(ptr1, ptr1->next_node);
 					swaped = 1;
 				}
 				break;
+			case iPersonContainer::sort_function_type::desc_id:
+				if (std::to_string(ptr1->data.unique_id) < std::to_string(ptr1->next_node->data.unique_id))
+				{
+					swap(ptr1, ptr1->next_node);
+					swaped = 1;
+				}
+				break;
 			case iPersonContainer::sort_function_type::asc_health:
-				if (std::to_string(ptr1->data.health) < std::to_string(ptr1->next_node->data.health))
+				if (std::to_string(ptr1->data.health) > std::to_string(ptr1->next_node->data.health))
 				{
 					swap(ptr1, ptr1->next_node);
 					swaped = 1;
 				}
 				break;
 			case iPersonContainer::sort_function_type::desc_health:
-				if (std::to_string(ptr1->data.health) > std::to_string(ptr1->next_node->data.health))
+				if (std::to_string(ptr1->data.health) < std::to_string(ptr1->next_node->data.health))
 				{
 					swap(ptr1, ptr1->next_node);
 					swaped = 1;
